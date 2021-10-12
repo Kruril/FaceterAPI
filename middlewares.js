@@ -2,13 +2,21 @@ const {makeExecutableSchema} = require("@graphql-tools/schema");
 const {readFileSync} = require("fs");
 
 const queries = require('./src/server/queries/queries')
+const mutations = require('./src/server/mutations/mutations')
 
 
 const schema = makeExecutableSchema({
     typeDefs: readFileSync('./graphql/schema.graphql', 'utf8'),
     resolvers: {
+        Mutation: {
+            addUser: (_, filters) => mutations.addUser(filters),
+            updateUser: (_, filters) => mutations.updateUser(filters),
+            delUser: (_, filters) => mutations.delUser(filters),
+            addPost: (_, filters) => mutations.addPost(filters),
+            delPost: (_, filters) => mutations.delPost(filters)
+        },
         Query: {
-            hello: (_, {name}) =>`Hello world! ${name}`,
+            hello: (_, {name}) => `Hello world! ${name}`,
             users: (_, filters) => queries.getUsers(filters),
             posts: (_, filters) => queries.getPosts(filters),
             reactions: (_, filters) => queries.getReactions(filters),

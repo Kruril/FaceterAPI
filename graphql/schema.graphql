@@ -39,3 +39,14 @@ type Query {
     reactions(userId: Int, postId: Int, reactionType: String): [Reaction]
     follow(followerId: Int, followedId: Int): [Follow]
 }
+
+type Mutation {
+#    User
+    addUser(name:String!, email:String!, password:String!): User
+    updateUser(id:Int!, name:String, email:String, password:String): User
+    delUser(id:Int!): User
+
+#    Posts
+    addPost(author:Int!, type:PostType!, content:String, date:String!): Post
+    delPost(id:Int!): Post
+}
